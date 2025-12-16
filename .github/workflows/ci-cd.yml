@@ -1,0 +1,50 @@
+name: React TypeScript CI/CD
+
+# develop または main に push / PR があったときに実行
+on:
+    push:
+        branches:
+            - develop
+    #         - main
+    # pull_request:
+    #     branches:
+    #         - develop
+    #         - main
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            # 1. コードを取得
+            - uses: actions/checkout@v4
+
+            # 2. Node.js をセットアップ
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "22.x"
+
+            # 3. 依存関係をインストール
+            - name: Install dependencies
+              run: npm ci
+
+            # 4. 型チェック
+            - name: TypeScript check
+              run: npm run type-check
+
+            # 5. Lint (コード品質チェック)
+            - name: Lint
+              run: npm run lint
+
+            # 5. ビルド
+            - name: Build
+              run: npm run build
+
+            # 6. デプロイ（例: GitHub Pages）
+            - name: Deploy to GitHub Pages
+              if: github.ref == 'refs/heads/develop' # develop の push のときだけ
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_dir: ./dist
