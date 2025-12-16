@@ -6,7 +6,7 @@ function App() {
     return (
         <>
             <nav>
-                <Link to="/">Home</Link>
+                <Link to="/">ホーム画面です。</Link>
                 <br />
                 <Link to="/fetch">fetch練習</Link>
             </nav>
