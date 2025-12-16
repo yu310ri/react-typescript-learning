@@ -52,3 +52,9 @@ jobs:
                   publish_branch: gh-pages
                   publish_dir: ./dist
                   force_orphan: true
+# github actions のメモ
+# develop ブランチに push されたときに自動でgh-pagesにデプロイするように設定
+# gh-pages ブランチは GitHub Pages の公開用ブランチ
+# secrets.GH_PAT は Personal Access Token (PAT) を GitHub リポジトリの Settings > Secrets and variables > Actions で設定しておく必要がある
+# gh-pages ブランチの Build and deployment の設定で、Source を gh-pages ブランチに設定しておく必要がある
+# これにより、develop ブランチに push されるたびに自動でビルドとデプロイが行われ、最新の状態が GitHub Pages に反映される
